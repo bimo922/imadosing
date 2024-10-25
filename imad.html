@@ -1,0 +1,81 @@
+
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدخال البيانات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+        }
+        form {
+            margin: 50px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <!-- إضافة مكتبة EmailJS -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("C2V5vad3AWQaxRY9F"); // استخدام API Key الخاص بك هنا
+        })();
+    </script>
+</head>
+<body>
+    <form id="dataForm">
+        <label for="firstName">الاسم:</label>
+        <input type="text" id="firstName" name="firstName" required><br>
+        
+        <label for="lastName">اللقب:</label>
+        <input type="text" id="lastName" name="lastName" required><br>
+        
+        <label for="age">العمر:</label>
+        <input type="number" id="age" name="age" required><br>
+        
+        <label for="year">السن:</label>
+        <input type="number" id="year" name="year" required><br>
+        
+        <button type="button" onclick="sendEmail()">إرسال البيانات</button>
+    </form>
+
+    <script>
+        function sendEmail() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const age = document.getElementById('age').value;
+            const year = document.getElementById('year').value;
+
+            const templateParams = {
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                year: year
+            };
+
+            emailjs.send('service_bimo1234567890', 'template_7avj4l555gggf4z', templateParams)
+                .then(function(response) {
+                    console.log('Success!', response.status, response.text);
+                    alert('تم إرسال البيانات بنجاح إلى بريدك الإلكتروني');
+                }, function(error) {
+                    console.log('Failed...', error);
+                    alert('فشل في إرسال البيانات');
+                });
+        }
+    </script>
+</body>
+</html>
